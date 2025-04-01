@@ -46,7 +46,7 @@ def enviar_email(destinatario, asunto, cuerpo):
 @app.route('/')
 def home():
     if 'usuario' in session:
-        return redirect(url_for('pagina_principal'))
+        return redirect(url_for('index'))
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -91,7 +91,7 @@ def registro():
         
         session['usuario'] = usuario
         flash("¡Registro exitoso! Bienvenido a FastHelp.", "success")
-        return redirect(url_for('pagina_principal'))
+        return redirect(url_for('login'))
 
     return render_template('register.html')
 
