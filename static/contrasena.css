@@ -1,0 +1,211 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #D3D3D3;  /* Fondo LightGray para mantener consistencia */
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Container principal */
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 0;
+    margin: 20px;
+}
+
+/* Contenedor del logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-container a {
+    text-decoration: none;
+    color: #333333;
+}
+
+.logo-container h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #333333;
+}
+
+.slogan {
+    margin: 5px 0 0;
+    font-size: 16px;
+    font-style: italic;
+    color: #555555;
+}
+
+/* Tarjeta de recuperación */
+.recovery-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recovery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.recovery-card h2 {
+    font-size: 24px;
+    color: #333333;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.recovery-info {
+    color: #666666;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Mensajes flash para éxito o error */
+.flash-message {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+/* Formulario y campos */
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.form-group .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555555;
+    font-size: 18px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333333;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #555555;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: #999999;
+}
+
+/* Botón de enviar */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.btn-submit i {
+    margin-right: 8px;
+}
+
+.btn-submit:hover {
+    background-color: #444444;
+    transform: translateY(-2px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Enlaces del formulario */
+.form-links {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.link-back {
+    color: #555555;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.link-back i {
+    margin-right: 8px;
+}
+
+.link-back:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+/* Estilos responsivos */
+@media (max-width: 480px) {
+    .container {
+        margin: 15px;
+    }
+    
+    .recovery-card {
+        padding: 20px;
+    }
+    
+    .recovery-card h2 {
+        font-size: 22px;
+    }
+    
+    .form-group input {
+        padding: 12px 12px 12px 40px;
+    }
+    
+    .btn-submit {
+        padding: 12px;
+    }
+}
