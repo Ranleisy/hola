@@ -1,0 +1,270 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #f2f4f8;
+    color: #2c3e50;
+    padding: 20px;
+}
+
+/* Contenedor general */
+.main-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Título de la página */
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-title h2 {
+    font-size: 2rem;
+    color: #34495e;
+}
+
+.page-title p {
+    color: #7f8c8d;
+}
+
+/* Contenedor del carrito */
+.cart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Ítems */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.item-description {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    font-size: 1.1rem;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.item-remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.item-remove:hover {
+    transform: scale(1.2);
+}
+
+/* Mensaje si el carrito está vacío */
+.empty-cart {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.empty-cart i {
+    font-size: 4rem;
+    color: #bdc3c7;
+    margin-bottom: 10px;
+}
+
+.empty-cart p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.empty-cart .btn-continue {
+    text-decoration: none;
+    background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.empty-cart .btn-continue:hover {
+    background-color: #2980b9;
+}
+
+/* Resumen */
+.cart-summary {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-row.total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* Botones del carrito */
+.cart-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.cart-actions a {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-continue {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+.btn-continue:hover {
+    background-color: #636e72;
+}
+
+.btn-checkout {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-checkout:hover {
+    background-color: #1e8449;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+    }
+
+    .cart-actions a {
+        width: 100%;
+    }
+}
+
+/* Estilo para el mensaje de descuento */
+.discount-message {
+    display: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #f39c12, #f1c40f);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    animation: slideIn 0.5s ease-out;
+}
+
+.discount-message i {
+    font-size: 2rem;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.discount-message span {
+    vertical-align: middle;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Estilo para el icono */
+.discount-message i {
+    color: #fff;
+}
+
+/* Mensaje de descuento en dispositivos móviles */
+@media (max-width: 768px) {
+    .discount-message {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .discount-message i {
+        font-size: 1.5rem;
+    }
+}
+

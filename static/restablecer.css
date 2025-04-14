@@ -1,0 +1,242 @@
+/* Estilos mejorados para restablecer_contrasena.html */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eaeaea;
+}
+
+.logo-container {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.logo-container a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.logo-container h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    background: linear-gradient(45deg, #333 30%, #666 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.slogan {
+    margin-top: 5px;
+    font-size: 0.95rem;
+    color: #777;
+    font-style: italic;
+}
+
+.reset-card {
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.reset-card h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #444;
+}
+
+.reset-info {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Mensajes flash */
+.flash-message {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+/* Form Fields */
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.password-group {
+    position: relative;
+}
+
+.form-group .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 18px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 45px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #555;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Password Toggle Icon */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+/* Password Strength Meter */
+.password-strength {
+    margin-bottom: 25px;
+}
+
+.strength-meter {
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    width: 0;
+}
+
+.strength-text {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 8px;
+    text-align: left;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #555;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-submit i {
+    font-size: 18px;
+}
+
+/* Form Links */
+.form-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-back {
+    display: inline-flex;
+    align-items: center;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.link-back:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.link-back i {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
+    .container {
+        max-width: 90%;
+        padding: 20px;
+    }
+    
+    .reset-card {
+        padding: 20px 15px;
+    }
+    
+    .logo-container h1 {
+        font-size: 2rem;
+    }
+}
