@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastHelp - Agregar Servicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='agregar_servicio.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <style>
+        /* Estilos para el selector de iconos */
+        .icon-selector-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .icon-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: white;
+        }
+        
+        .icon-preview i {
+            font-size: 1.5rem;
+        }
+        
+        .icon-grid {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon-grid.show {
+            display: block;
+        }
+        
+        .icon-search-container {
+            margin-bottom: 10px;
+        }
+        
+        .search-icons {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .icon-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .category-btn.active {
+            background-color: #0099cc;
+            color: white;
+        }
+        
+        .icons-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .icons-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .icons-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .icon-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .icon-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .icon-option i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .icon-option .icon-name {
+            font-size: 0.7rem;
+            text-align: center;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="{{ url_for('pagina_principal') }}">
+                    <h1>FastHelp</h1>
+                </a>
+                <p class="slogan">Soluciones rápidas y confiables</p>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('pagina_principal') }}">INICIO</a></li>
+                <li><a href="{{ url_for('servicios') }}">SERVICIOS</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">{{ usuario[0].upper() if usuario else 'CUENTA' }}</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('mi_perfil') }}">
+                            <i class="fas fa-user"></i> Mi Perfil
+                        </a>
+                        <a href="{{ url_for('mis_servicios') }}">
+                            <i class="fas fa-tools"></i> Mis Servicios
+                        </a>
+                        <a href="{{ url_for('acerca_de') }}">
+                            <i class="fas fa-info-circle"></i> Acerca De Nosotros
+                        </a>
+                        <a href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </a>
+                        {% if tipo_usuario == 'jefe' %}
+                        <!-- Botón para registrar empleados visible solo para el jefe -->
+                        <a href="{{ url_for('register_employee') }}" class="btn-register-employee">
+                            <i class="fas fa-user-plus"></i> Registrar Empleado
+                        </a>
+                        <!-- Botón para nómina visible solo para el jefe -->
+                        <a href="{{ url_for('nomina') }}" class="btn-nomina">
+                            <i class="fas fa-briefcase"></i> Nómina de la empresa
+                        </a>
+                        <!-- Botón para agregar servicio visible solo para el jefe -->
+                        <a href="{{ url_for('agregar_servicio') }}" class="btn-add-service">
+                            <i class="fas fa-plus-circle"></i> Agregar Servicio
+                        </a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+            <button class="hamburger" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        <div class="mobile-menu hidden">
+            <a href="{{ url_for('pagina_principal') }}">INICIO</a>
+            <a href="{{ url_for('servicios') }}">SERVICIOS</a>
+            <a href="{{ url_for('mi_perfil') }}">
+                <i class="fas fa-user"></i> Mi Perfil
+            </a>
+            <a href="{{ url_for('mis_servicios') }}">
+                <i class="fas fa-tools"></i> Mis Servicios
+            </a>
+            <a href="{{ url_for('logout') }}">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </a>
+            {% if tipo_usuario == 'jefe' %}
+            <!-- Botón para registrar empleados en el menú móvil -->
+            <a href="{{ url_for('register_employee') }}" class="btn-register-employee">
+                <i class="fas fa-user-plus"></i> Registrar Empleado
+            </a>
+            <!-- Botón para nómina en el menú móvil -->
+            <a href="{{ url_for('nomina') }}" class="btn-nomina">
+                <i class="fas fa-briefcase"></i> Nómina de la empresa
+            </a>
+            <!-- Botón para agregar servicio en el menú móvil -->
+            <a href="{{ url_for('agregar_servicio') }}" class="btn-add-service">
+                <i class="fas fa-plus-circle"></i> Agregar Servicio
+            </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="form-container">
+            <h2><i class="fas fa-plus-circle"></i> Agregar Nuevo Servicio</h2>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" action="{{ url_for('agregar_servicio') }}" class="service-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Servicio:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio (RD$):</label>
+                    <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="icono">Seleccione un Icono:</label>
+                    <input type="hidden" id="icono" name="icono" value="fas fa-tools" required>
+                    
+                    <div class="icon-selector-container">
+                        <div class="icon-preview" id="icon-preview">
+                            <i class="fas fa-tools"></i>
+                            <span>fas fa-tools</span>
+                        </div>
+                        
+                        <div class="icon-grid" id="icon-grid">
+                            <div class="icon-search-container">
+                                <input type="text" class="search-icons" id="search-icons" placeholder="Buscar iconos...">
+                            </div>
+                            
+                            <div class="icon-categories">
+                                <button type="button" class="category-btn active" data-category="all">Todos</button>
+                                <button type="button" class="category-btn" data-category="fas">Sólidos</button>
+                                <button type="button" class="category-btn" data-category="far">Regular</button>
+                                <button type="button" class="category-btn" data-category="fab">Marcas</button>
+                                <button type="button" class="category-btn" data-category="service">Servicios</button>
+                            </div>
+                            
+                            <div class="icons-container" id="icons-container">
+                                <!-- Los iconos se cargarán dinámicamente con JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagen">Imagen del Servicio:</label>
+                    <input type="file" id="imagen" name="imagen" accept="image/*" required>
+                    <p class="help-text">Sube una imagen representativa del servicio (formato: JPG, PNG, máx. 5MB)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccione una categoría</option>
+                        <option value="reparaciones">Reparaciones Exprés</option>
+                        <option value="limpieza">Limpieza</option>
+                        <option value="asistencia">Asistencia Personal</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">Guardar Servicio</button>
+                    <a href="{{ url_for('servicios') }}" class="btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FastHelp</h4>
+                <p>Soluciones rápidas y confiables para tus necesidades</p>
+                <p class="vision">Nuestra visión: Convertirnos en la red de servicios más confiable y reconocida en República Dominicana.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp Business: +1 (809) XXX-XXXX</p>
+                <p><i class="far fa-envelope"></i> Email: contacto@fasthelp.com.do</p>
+                <div class="social-media">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FastHelp. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Icon Selector
+        document.addEventListener('DOMContentLoaded', function() {
+            const iconGrid = document.getElementById('icon-grid');
+            const iconPreview = document.getElementById('icon-preview');
+            const iconInput = document.getElementById('icono');
+            const searchInput = document.getElementById('search-icons');
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const iconsContainer = document.getElementById('icons-container');
+            
+            // Lista de iconos comunes de Font Awesome agrupados por categoría
+            const iconsList = {
+                // Iconos de reparación/herramientas
+                tools: [
+                    {class: 'fas fa-tools', name: 'Herramientas'},
+                    {class: 'fas fa-wrench', name: 'Llave inglesa'},
+                    {class: 'fas fa-hammer', name: 'Martillo'},
+                    {class: 'fas fa-screwdriver', name: 'Destornillador'},
+                    {class: 'fas fa-toolbox', name: 'Caja de herramientas'},
+                    {class: 'fas fa-hard-hat', name: 'Casco'},
+                ],
+                
+                // Iconos de limpieza
+                cleaning: [
+                    {class: 'fas fa-broom', name: 'Escoba'},
+                    {class: 'fas fa-spray-can', name: 'Spray'},
+                    {class: 'fas fa-pump-soap', name: 'Jabón'},
+                    {class: 'fas fa-bath', name: 'Bañera'},
+                    {class: 'fas fa-hand-sparkles', name: 'Manos limpias'},
+                    {class: 'fas fa-hands-wash', name: 'Lavado de manos'},
+                ],
+                
+                // Iconos de hogar
+                home: [
+                    {class: 'fas fa-home', name: 'Casa'},
+                    {class: 'fas fa-couch', name: 'Sofá'},
+                    {class: 'fas fa-bed', name: 'Cama'},
+                    {class: 'fas fa-chair', name: 'Silla'},
+                    {class: 'fas fa-door-open', name: 'Puerta abierta'},
+                    {class: 'fas fa-lightbulb', name: 'Bombilla'},
+                    {class: 'far fa-lightbulb', name: 'Bombilla (contorno)'},
+                ],
+                
+                // Iconos de electrónica
+                electronics: [
+                    {class: 'fas fa-tv', name: 'Televisión'},
+                    {class: 'fas fa-laptop', name: 'Laptop'},
+                    {class: 'fas fa-mobile-alt', name: 'Móvil'},
+                    {class: 'fas fa-plug', name: 'Enchufe'},
+                    {class: 'fas fa-desktop', name: 'Escritorio'},
+                    {class: 'fas fa-keyboard', name: 'Teclado'},
+                ],
+                
+                // Iconos de climatización
+                climate: [
+                    {class: 'fas fa-fan', name: 'Ventilador'},
+                    {class: 'fas fa-temperature-high', name: 'Temperatura alta'},
+                    {class: 'fas fa-temperature-low', name: 'Temperatura baja'},
+                    {class: 'fas fa-snowflake', name: 'Copo de nieve'},
+                    {class: 'far fa-snowflake', name: 'Copo (contorno)'},
+                ],
+                
+                // Iconos de plomería
+                plumbing: [
+                    {class: 'fas fa-faucet', name: 'Grifo'},
+                    {class: 'fas fa-shower', name: 'Ducha'},
+                    {class: 'fas fa-toilet', name: 'Inodoro'},
+                    {class: 'fas fa-sink', name: 'Lavabo'},
+                ],
+                
+                // Iconos de jardinería
+                garden: [
+                    {class: 'fas fa-leaf', name: 'Hoja'},
+                    {class: 'fas fa-tree', name: 'Árbol'},
+                    {class: 'fas fa-seedling', name: 'Plántula'},
+                    {class: 'fas fa-spa', name: 'Spa'},
+                ],
+                
+                // Iconos de transporte/asistencia
+                transport: [
+                    {class: 'fas fa-car', name: 'Coche'},
+                    {class: 'fas fa-truck', name: 'Camión'},
+                    {class: 'fas fa-motorcycle', name: 'Motocicleta'},
+                    {class: 'fas fa-bicycle', name: 'Bicicleta'},
+                ],
+                
+                // Iconos de asistencia/servicio
+                service: [
+                    {class: 'fas fa-concierge-bell', name: 'Conserje'},
+                    {class: 'fas fa-hands-helping', name: 'Manos ayudando'},
+                    {class: 'fas fa-handshake', name: 'Apretón de manos'},
+                    {class: 'far fa-handshake', name: 'Apretón (contorno)'},
+                    {class: 'fas fa-headset', name: 'Auriculares'},
+                    {class: 'fas fa-phone', name: 'Teléfono'},
+                    {class: 'fas fa-bell', name: 'Campana'},
+                    {class: 'far fa-bell', name: 'Campana (contorno)'},
+                    {class: 'fas fa-credit-card', name: 'Tarjeta de crédito'},
+                    {class: 'fas fa-id-card', name: 'Tarjeta ID'},
+                    {class: 'fas fa-clipboard-list', name: 'Portapapeles'},
+                    {class: 'fas fa-calendar-check', name: 'Calendario'},
+                    {class: 'fas fa-dollar-sign', name: 'Dólar'},
+                    {class: 'fas fa-user-tie', name: 'Usuario formal'},
+                    {class: 'fas fa-user-shield', name: 'Usuario seguro'},
+                ],
+                
+                // Iconos generales
+                general: [
+                    {class: 'fas fa-star', name: 'Estrella'},
+                    {class: 'far fa-star', name: 'Estrella (contorno)'},
+                    {class: 'fas fa-heart', name: 'Corazón'},
+                    {class: 'far fa-heart', name: 'Corazón (contorno)'},
+                    {class: 'fas fa-check', name: 'Marca de verificación'},
+                    {class: 'fas fa-info-circle', name: 'Información'},
+                    {class: 'fas fa-exclamation-circle', name: 'Exclamación'},
+                    {class: 'fas fa-plus-circle', name: 'Más'},
+                    {class: 'fas fa-minus-circle', name: 'Menos'},
+                    {class: 'fas fa-check-circle', name: 'Verificado'},
+                    {class: 'fas fa-times-circle', name: 'Cancelar'},
+                ]
+            };
+            
+            // Función para cargar todos los iconos
+            function loadAllIcons() {
+                let allIcons = [];
+                
+                // Combinar todas las categorías en una sola lista
+                for (const category in iconsList) {
+                    allIcons = allIcons.concat(iconsList[category]);
+                }
+                
+                return allIcons;
+            }
+            
+            // Cargar todos los iconos al inicio
+            let currentIcons = loadAllIcons();
+            
+            // Función para renderizar iconos
+            function renderIcons(icons) {
+                // Limpiar el contenedor
+                iconsContainer.innerHTML = '';
+                
+                // Añadir cada icono al grid
+                icons.forEach(icon => {
+                    const iconOption = document.createElement('div');
+                    iconOption.className = 'icon-option';
+                    iconOption.setAttribute('data-icon-class', icon.class);
+                    
+                    iconOption.innerHTML = `
+                        <i class="${icon.class}"></i>
+                        <span class="icon-name">${icon.name}</span>
+                    `;
+                    
+                    // Evento al hacer clic en un icono
+                    iconOption.addEventListener('click', function() {
+                        const selectedIconClass = this.getAttribute('data-icon-class');
+                        
+                        // Actualizar el preview
+                        iconPreview.querySelector('i').className = selectedIconClass;
+                        iconPreview.querySelector('span').textContent = selectedIconClass;
+                        
+                        // Actualizar el valor del input oculto
+                        iconInput.value = selectedIconClass;
+                        
+                        // Cerrar el grid
+                        iconGrid.classList.remove('show');
+                    });
+                    
+                    iconsContainer.appendChild(iconOption);
+                });
+            }
+            
+            // Mostrar/ocultar el selector de iconos
+            iconPreview.addEventListener('click', function(e) {
+                e.preventDefault();
+                iconGrid.classList.toggle('show');
+                if (iconGrid.classList.contains('show')) {
+                    renderIcons(currentIcons);
+                    searchInput.focus();
+                }
+            });
+            
+            // Cerrar el selector si se hace clic fuera
+            document.addEventListener('click', function(event) {
+                if (!iconGrid.contains(event.target) && !iconPreview.contains(event.target) && iconGrid.classList.contains('show')) {
+                    iconGrid.classList.remove('show');
+                }
+            });
+            
+            // Evitar que los clics dentro del grid se propaguen al documento
+            iconGrid.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            
+            // Filtrar iconos al buscar
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredIcons = currentIcons.filter(icon => 
+                    icon.name.toLowerCase().includes(searchTerm) || 
+                    icon.class.toLowerCase().includes(searchTerm)
+                );
+                renderIcons(filteredIcons);
+            });
+            
+            // Cambiar entre categorías
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Desactivar todos los botones
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Activar el botón actual
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    if (category === 'all') {
+                        currentIcons = loadAllIcons();
+                    } else if (category === 'fas' || category === 'far' || category === 'fab') {
+                        // Filtrar iconos por prefijo (fas, far, fab)
+                        currentIcons = loadAllIcons().filter(icon => icon.class.startsWith(category));
+                    } else if (category === 'service') {
+                        // Mostrar iconos de la categoría "service"
+                        currentIcons = iconsList.service;
+                    }
+                    
+                    renderIcons(currentIcons);
+                });
+            });
+            
+            // Inicializar
+            renderIcons(currentIcons);
+        });
+    </script>
+</body>
+</html>

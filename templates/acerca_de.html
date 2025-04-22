@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de Nosotros - FastHelp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="{{ url_for('pagina_principal') }}">
+                    <h1>FastHelp</h1>
+                </a>
+                <p class="slogan">Soluciones rápidas y confiables</p>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('pagina_principal') }}">INICIO</a></li>
+                <li><a href="{{ url_for('servicios') }}">SERVICIOS</a></li>
+                <li><a href="{{ url_for('acerca_de') }}" class="active">ACERCA DE NOSOTROS</a></li>
+                <li><a href="{{ url_for('mi_perfil') }}">MI PERFIL</a></li>
+                <li><a href="{{ url_for('logout') }}">CERRAR SESIÓN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <section class="about-us">
+            <h2>Acerca de FastHelp</h2>
+            <p><strong>Nombre de la empresa:</strong> FastHelp</p>
+            <p><strong>Misión:</strong> Brindar soluciones rápidas y confiables conectando a personas con profesionales capacitados para resolver cualquier necesidad del hogar, oficina o negocio de manera eficiente y segura.</p>
+            <p><strong>Visión:</strong> Convertirnos en la red de servicios más confiable y reconocida en República Dominicana, facilitando la vida de las personas y generando oportunidades de empleo para trabajadores especializados.</p>
+
+            <h3>Valores</h3>
+            <div class="values">
+                <div class="value-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Rapidez</h4>
+                    <p>Resolvemos problemas en el menor tiempo posible.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Confianza</h4>
+                    <p>Todos nuestros trabajadores son verificados y confiables.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-award"></i>
+                    <h4>Calidad</h4>
+                    <p>Garantizamos un servicio bien hecho.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Innovación</h4>
+                    <p>Utilizamos tecnología para facilitar la conexión entre clientes y trabajadores.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Compromiso</h4>
+                    <p>Nos esforzamos por la satisfacción de cada cliente.</p>
+                </div>
+            </div>
+
+            <h3>Filosofía</h3>
+            <p>Creemos que cada problema tiene solución y que el tiempo de nuestros clientes es valioso. Nos enfocamos en eliminar el estrés de tareas cotidianas proporcionando acceso inmediato a expertos de confianza.</p>
+
+            <h3>¿A qué se dedica?</h3>
+            <p>FastHelp es una plataforma que conecta clientes con profesionales para resolver necesidades como reparaciones exprés, limpieza, asistencia personal y más, garantizando rapidez y calidad en cada servicio.</p>
+
+           
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FastHelp</h4>
+                <p>Soluciones rápidas y confiables para tus necesidades</p>
+                <p class="vision">Nuestra visión: Convertirnos en la red de servicios más confiable y reconocida en República Dominicana.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp Business: +1 (809) XXX-XXXX</p>
+                <p><i class="far fa-envelope"></i> Email: contacto@fasthelp.com.do</p>
+                <div class="social-media">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FastHelp. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
