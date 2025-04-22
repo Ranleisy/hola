@@ -228,14 +228,14 @@
         let descuentoGeneral = 0;
         let porcentajeTotal = 0;
 
-        if (subtotal >= 100000) {
-            // Aplicar descuento del 2.5% si el subtotal supera los 100k
-            descuentoGeneral = subtotal * 0.025;
-            porcentajeTotal = 2.5;
-        } else if (subtotal >= 50000) {
+        if (subtotal >= 50000) {
             // Aplicar descuento del 5% si el subtotal es mayor o igual a 50k
             descuentoGeneral = subtotal * 0.05;
             porcentajeTotal = 5;
+        } else if (subtotal >= 10000) {
+            // Aplicar descuento del 2.5% si el subtotal supera los 10k
+            descuentoGeneral = subtotal * 0.025;
+            porcentajeTotal = 2.5;
         }
 
         // Mostrar mensaje si hay descuento general
